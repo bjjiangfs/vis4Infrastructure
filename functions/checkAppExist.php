@@ -1,4 +1,5 @@
 <?php
+//Check if the application exists 
 $name_app = $_POST["app"];
 $conn = new MongoClient('mongodb://localhost');
 $db = $conn -> COCKPIT;

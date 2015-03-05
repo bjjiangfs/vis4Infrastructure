@@ -1,5 +1,10 @@
 <?php
 
+
+// THIS FILE IS ARCHIVED. THE LOGIC HERE IS NOT OPTIMIZED. KEEP THE FILE AS REFERENCE ANYWAY
+
+
+
 //	Create a node with all its information in JSON format
 function createNode($info_machine, $key) {
 	$oneNode = array();

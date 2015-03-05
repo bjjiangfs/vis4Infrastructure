@@ -1,4 +1,13 @@
 <?php
+
+/*
+	This file re-organises related data into right format that GoJS can take directly as input to generate schema
+	The reorganised data will be saved in db for faster query afterwards
+
+	hypersion.ksh exports rawdata from CMDB cockpit every night
+	and this file will be executed right after the export finishes to update all pre-saved schemas
+
+*/
 //integrer toutes les fonctions necessaires
 require_once '../functions/appmodule.php';
 require_once '../functions/modelSigle.php';
@@ -36,34 +45,29 @@ foreach ($all_apps as $key => $value) {
 
 	$name_app = $value["name_application"];
 	
-		//Get tous les modules appartenant à cette appli
-		$allModulesOfApp = $db -> app_module -> distinct("name_application", array("name_application_parent" => $name_app));
+	//Get tous les modules appartenant à cette appli
+	$allModulesOfApp = $db -> app_module -> distinct("name_application", array("name_application_parent" => $name_app));
+	//Inclure aussi cette appli
+	$allModulesOfApp[] = $name_app;
 
-		//Inclure aussi cette appli
-		$allModulesOfApp[] = $name_app;
+	echo "-------" . $name_app . " starts--------<br/>";
+	//Get tous les site de cette appli
+	$sites_Of_App = $db -> function -> distinct("site", array("name_department" => "prd-risques", "name_application" => array('$in' => $allModulesOfApp)));
+	//CreateSchema renvoie une chaîne de caractères contenant tous noeuds du schéma. "all" signifie "all sites", donc diagram logique
+	$dataToSave = createSchema($allModulesOfApp, "all");
+	//Sauvegarder cette chaîne de caractères dans "diagram_log"
+	saveSchema($name_app, "log", $dataToSave);
+	echo "Le schéma logique est sauvegardé.<br/>";
 
-		echo "-------" . $name_app . " starts--------<br/>";
-		//Get tous les site de cette appli
-		$sites_Of_App = $db -> function -> distinct("site", array("name_department" => "prd-risques", "name_application" => array('$in' => $allModulesOfApp)));
-
-		//CreateSchema renvoie une chaîne de caractères contenant tous noeuds du schéma. "all" signifie "all sites", donc diagram logique
-		$dataToSave = createSchema($allModulesOfApp, "all");
-
-		//Sauvegarder cette chaîne de caractères dans "diagram_log"
-		saveSchema($name_app, "log", $dataToSave);
-		echo "Le schéma logique est sauvegardé.<br/>";
-
-		//Boucler sur tous les sites
-		foreach ($sites_Of_App as $key => $site) {
-			$dataToSave = createSchema($allModulesOfApp, $site);
-			//Sauvegarder cette chaîne de caractères dans "diagram_geo"
-			saveSchema($name_app, "geo", $dataToSave, $site);
-			echo "Un schéma géographique (" . $site . ")est sauvegardé.<br/>";
-		}
-		echo "-------" . $name_app . " finished--------<br/><br/>";
-		//break;
-	
-
+	//Boucler sur tous les sites
+	foreach ($sites_Of_App as $key => $site) {
+		$dataToSave = createSchema($allModulesOfApp, $site);
+		//Sauvegarder cette chaîne de caractères dans "diagram_geo"
+		saveSchema($name_app, "geo", $dataToSave, $site);
+		echo "Un schéma géographique (" . $site . ")est sauvegardé.<br/>";
+	}
+	echo "-------" . $name_app . " finished--------<br/><br/>";
+	//break;	
 }
 
 echo "Succès";

@@ -18,9 +18,6 @@ $conn -> close();
 		<meta name="author" content="PR2">
 
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-		<!-- Optional theme -->
-		<!--link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"-->
-
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="js/jquery-ui.js"></script>
 
@@ -37,31 +34,6 @@ $conn -> close();
 
 		<script src="js/go.js"></script>
 		<script src="js/architecture.js"></script>
-		<!--Autocomlexion for bootstrap--->
-		<script src="js/typeahead.js" type="text/javascript"></script>
-
-		<style>
-			.scrollable-menu {
-				height: auto;
-				max-height: 200px;
-				overflow-x: hidden;
-			}
-			.checkbox {
-				margin-left: 5px;
-				margin-right: 5px;
-			}
-			body {
-				overflow-y: scroll;
-			}
-			body.modal-open {
-				position: fixed;
-				top: 0;
-				right: 0;
-				bottom: 0;
-				left: 0;
-				overflow-y: scroll;
-			}
-		</style>
 
 		<link href="css/autocomplete.css" rel="stylesheet">
 
@@ -210,7 +182,6 @@ $conn -> close();
 			</div>
 
 			<input type="hidden" id="activeDiagram"/>
-			<!--textarea id="mySavedModel" style="width:100%;height:300px">
 			</textarea-->
 			<div  class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog " style="padding-top: 15%;  ">

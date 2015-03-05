@@ -1,4 +1,5 @@
 <?php
+// Save application_name of applications of prd-riques as well as all sub modules of those applications
 function createAppModule() {
 	$conn = new MongoClient('mongodb://localhost');
 	$db = $conn -> COCKPIT;

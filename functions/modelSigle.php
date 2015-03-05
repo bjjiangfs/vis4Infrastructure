@@ -1,4 +1,6 @@
 <?php
+
+// Here we define an abbreviated name for name_model
 function createModelSigle() {
 	$conn = new MongoClient('mongodb://localhost');
 	$db = $conn -> COCKPIT;

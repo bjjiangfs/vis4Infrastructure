@@ -1,4 +1,8 @@
 <?php
+
+//get parent applications and child applications of one application
+
+
 $name_app = $_GET["app"];
 $conn = new MongoClient('mongodb://localhost');
 $db = $conn -> COCKPIT;

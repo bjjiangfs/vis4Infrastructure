@@ -1,4 +1,7 @@
 <?php
+
+// get sites of different geographic location
+
 $name_app = $_GET["app"];
 $conn = new MongoClient('mongodb://localhost');
 $collection = $conn -> COCKPIT -> function;

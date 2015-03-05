@@ -1,4 +1,7 @@
 <?php
+
+// This files return the filter-bar above the schema
+
 $name_app = $_GET["app"];
 $conn = new MongoClient('mongodb://localhost');
 $db = $conn -> COCKPIT;
